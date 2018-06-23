@@ -90,6 +90,21 @@ var-lost:
     echo "foo=[$$foo]"
 ```
 
+上面代码执行后（`make var-lost`），取不到 foo 的值。因为两个命令在不同的进程中执行。一个解决办法是将两行代码写在一行，中间用分号分隔。
+
+```
+var-kept:
+    export foo=bar; echo "foo=[$$foo]"
+```
+
+另一个解决办法是在换行符前增加反斜线转义：
+
+```
+var-kept:
+    export foo=bar; \
+    echo "foo=[$$foo]"
+```
+
 ## REF
 
 - [Make 命令教程 - 阮一峰](http://www.ruanyifeng.com/blog/2015/02/make.html)，2015/02/20
