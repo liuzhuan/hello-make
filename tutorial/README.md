@@ -105,6 +105,28 @@ var-kept:
     echo "foo=[$$foo]"
 ```
 
+## 自动变量
+
+make 命令提供了一些自动变量（Automatic Variables），它们的值与当前规则有关。主要有以下几个：
+
+### `$@`
+
+`$@` 表示当前目标。比如 `make foo` 的 `$@` 就表示 `foo`。
+
+```
+a.txt b.txt:
+    touch $@
+```
+
+等同于如下写法：
+
+```
+a.txt:
+    touch a.txt
+b.txt:
+    touch b.txt
+```
+
 ## REF
 
 - [Make 命令教程 - 阮一峰](http://www.ruanyifeng.com/blog/2015/02/make.html)，2015/02/20
