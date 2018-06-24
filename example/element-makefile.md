@@ -63,8 +63,45 @@ new-lang:
 	node build/bin/new-lang.js $(filter-out $@,$(MAKECMDGOALS))
 ```
 
+我们对其中的关键语法逐一拆解。
+
+## filter-out 函数
+
+其中的 [`filter-out`][text-func] 是 GNU make 的一个文本函数。它的签名是：
+
+```
+$(filter-out pattern...,text)
+```
+
+`text` 是空格分隔的字符串，`pattern` 是目标字符串模版。这个函数将 `text` 中所有匹配 `pattern` 的单词删除，返回剩余的单词。
+
+比如，如果有如下变量定义：
+
+```
+objects=main1.o foo.o main2.o bar.o
+mains=main1.o main2.o
+```
+
+以下的函数会返回所有除 `mains` 变量之外的其余变量：
+
+```
+$(filter-out $(mains),$(objects))
+```
+
+## $@
+
+`$@` 表示当前目标。
+
+## MAKECMDGOALS
+
+`MAKECMDGOALS` 是一个特殊的 make 变量，表示在命令行中指定的构建目标名列表。
+
 ## REF
 
 - [Makefile of element][permalink]
+- [GNU make: Text Functions][text-func]
+- [GNU make: Goals][goals]
 
 [permalink]: https://github.com/ElemeFE/element/blob/c93851abd127412b1adce20de901b826d1b7fe19/Makefile#L1-L46
+[text-func]: https://www.gnu.org/software/make/manual/html_node/Text-Functions.html
+[goals]: https://www.gnu.org/software/make/manual/html_node/Goals.html
